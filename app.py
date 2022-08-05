@@ -8,3 +8,12 @@ app = Flask(__name__)
 db = SQLAlchemy(app)
 # Schema Variable
 ma = Marshmallow(app)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 
+
+class Messages(db.Model):
+    
+
+if __name__ == "__main__":
+    db.create_all()
+    app.run()
