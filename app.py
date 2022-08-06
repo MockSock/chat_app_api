@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 # The path has to be coded into a variable according to this:
 # https://stackoverflow.com/questions/18208492/sqlalchemy-exc-operationalerror-operationalerror-unable-to-open-database-file
-file_path = os.path.abspath(os.getcwd())+'\messages.db'
+file_path = os.path.abspath(os.getcwd())+'\messages.sqlite3'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+file_path
 
 # Database
@@ -51,7 +51,7 @@ def get_messages():
 @app.route('/new/message', methods=['POST'])
 def post_message():
     req = request.get_json()
-    conversation_id = req[int('conversation_id')]
+    conversation_id = req['conversation_id']
     sender_name = req['sender_name']
     sender_id = req['sender_id']
     time_sent = req['time_sent']
