@@ -44,6 +44,19 @@ def get_messages():
     # return final product in json format
     return jsonify(result)
 
+@app.route('/messsages', methods=["POST"])
+def post_message():
+    req = request.get_json()
+    conversation_id = req['conversation_id']
+    sender_name = req['sender_name']
+    sender_id = req['sender_id']
+    time_sent = req['time_sent']
+    content = req['content']
+    new_entry = Message(conversation_id=conversation_id, sender_id=sender_id, sender_name=sender_name, time_sent=time_sent, content=content)
+
+    db.session.add(new_entry)
+    db.session.commit()
+    return redirect(url_for('/messages'))
+
 if __name__ == "__main__":
-    # db.create_all()
     app.run()
