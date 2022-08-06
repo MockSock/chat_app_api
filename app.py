@@ -27,9 +27,14 @@ class MessageSchema(ma.Schema):
 
 my_message_schema = MessageSchema(many=True)
 
+# Control Method
 @app.route('/')
 def hello_world():
     return 'Hello World!'
+
+@app.route('/messages')
+def getMessages():
+    return 'I will be your messages soon'
 
 if __name__ == "__main__":
     db.create_all()
