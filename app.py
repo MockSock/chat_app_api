@@ -1,6 +1,4 @@
-from dataclasses import fields
-import sqlite3
-from flask import Flask
+from flask import Flask, url_for, jsonify, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
@@ -34,6 +32,7 @@ def hello_world():
 
 @app.route('/messages')
 def get_messages():
+    message_entries = Message.query.all()
     return 'I will be your messages soon'
 
 if __name__ == "__main__":
