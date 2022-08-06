@@ -48,10 +48,10 @@ def get_messages():
 
 # Post a new message to db
 @cross_origin()
-@app.route('/messsages', methods=['POST'])
+@app.route('/new/message', methods=['POST'])
 def post_message():
     req = request.get_json()
-    conversation_id = req['conversation_id']
+    conversation_id = req[int('conversation_id')]
     sender_name = req['sender_name']
     sender_id = req['sender_id']
     time_sent = req['time_sent']
