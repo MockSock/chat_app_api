@@ -2,10 +2,15 @@ from flask import Flask, url_for, jsonify, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
+import os
+
 app = Flask(__name__)
 
-# Can it solve it within it's own memory?
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory'
+# The path has to be coded into a variable according to this:
+# https://stackoverflow.com/questions/18208492/sqlalchemy-exc-operationalerror-operationalerror-unable-to-open-database-file
+file_path = os.path.abspath(os.getcwd())+'\messages.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+file_path
+
 # Database
 db = SQLAlchemy(app)
 # Schema Variable
