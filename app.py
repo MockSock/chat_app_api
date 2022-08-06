@@ -1,11 +1,12 @@
 from flask import Flask, url_for, jsonify, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from flask_cors import cross_origin
+from flask_cors import cross_origin, CORS
 
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 # The path has to be coded into a variable according to this:
 # https://stackoverflow.com/questions/18208492/sqlalchemy-exc-operationalerror-operationalerror-unable-to-open-database-file
@@ -41,6 +42,7 @@ def hello_world():
     return "Hello World"
     
 # Get Messages
+@cross_origin()
 @app.route('/messages')
 def get_messages():
     # get messages from table
