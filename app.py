@@ -33,7 +33,7 @@ def hello_world():
     return 'Hello World!'
 
 @app.route('/messages')
-def getMessages():
+def get_messages():
     return 'I will be your messages soon'
 
 if __name__ == "__main__":
