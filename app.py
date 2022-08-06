@@ -9,6 +9,7 @@ db = SQLAlchemy(app)
 # Schema Variable
 ma = Marshmallow(app)
 
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:messages.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///messages.db'
 
 class Message(db.Model):
@@ -25,7 +26,7 @@ class MessageSchema(ma.Schema):
 
 my_message_schema = MessageSchema(many=True)
 
-# Control Method
+# Control Method maybe make the table here?? 
 @app.route('/')
 def hello_world():
     return 'Hello World!'
