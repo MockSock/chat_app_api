@@ -32,8 +32,11 @@ def hello_world():
 
 @app.route('/messages')
 def get_messages():
+    # get messages from table
     message_entries = Message.query.all()
-    return 'I will be your messages soon'
+    result = my_message_schema.dump(message_entries)
+    # return final product in json format
+    return jsonify(result)
 
 if __name__ == "__main__":
     db.create_all()
