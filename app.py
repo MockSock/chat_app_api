@@ -1,3 +1,4 @@
+from dataclasses import fields
 import sqlite3
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -12,7 +13,7 @@ ma = Marshmallow(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///messages.db'
 
-class Messages(db.Model):
+class Message(db.Model):
     conversation_id = db.Column(db.Integer, primary_key=True)
     sender_id = db.Column(db.Integer)
     # character limit is 500 
@@ -20,6 +21,15 @@ class Messages(db.Model):
     content = db.Column(db.String(500))
     time_sent = db.Column(db.String)
 
+class MessageSchema(ma.Schema):
+    class Meta:
+        fields = ('conversation_id', 'sender_id', 'sender_name', 'content', 'time_sent')
+
+my_message_schema = MessageSchema(many=True)
+
+@app.route('/')
+def hello_world():
+    return 'Hello World!'
 
 if __name__ == "__main__":
     db.create_all()
