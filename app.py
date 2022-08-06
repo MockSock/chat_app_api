@@ -1,6 +1,7 @@
 from flask import Flask, url_for, jsonify, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_cors import cross_origin
 
 import os
 
@@ -46,7 +47,8 @@ def get_messages():
     return jsonify(result)
 
 # Post a new message to db
-@app.route('/messsages', methods=["POST"])
+@cross_origin()
+@app.route('/messsages', methods=['POST'])
 def post_message():
     req = request.get_json()
     conversation_id = req['conversation_id']
