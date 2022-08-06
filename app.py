@@ -36,6 +36,7 @@ def create_database():
     db.create_all()
     return 'New Table Has Been Made'
 
+# Get Messages
 @app.route('/messages')
 def get_messages():
     # get messages from table
@@ -44,6 +45,7 @@ def get_messages():
     # return final product in json format
     return jsonify(result)
 
+# Post a new message to db
 @app.route('/messsages', methods=["POST"])
 def post_message():
     req = request.get_json()
