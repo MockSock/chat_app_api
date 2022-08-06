@@ -4,20 +4,19 @@ from flask_marshmallow import Marshmallow
 
 app = Flask(__name__)
 
+# Can it solve it within it's own memory?
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory'
 # Database
 db = SQLAlchemy(app)
 # Schema Variable
 ma = Marshmallow(app)
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:messages.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///messages.db'
-
 class Message(db.Model):
     conversation_id = db.Column(db.Integer, primary_key=True)
     sender_id = db.Column(db.Integer)
     # character limit is 500 
-    sender_name = db.Column(db.String(500))
-    content = db.Column(db.String(500))
+    sender_name = db.Column(db.String(500), default='Guest')
+    content = db.Column(db.String(500), nullable=False)
     time_sent = db.Column(db.String)
 
 class MessageSchema(ma.Schema):
@@ -26,10 +25,11 @@ class MessageSchema(ma.Schema):
 
 my_message_schema = MessageSchema(many=True)
 
-# Control Method maybe make the table here?? 
+# Make table here
 @app.route('/')
-def hello_world():
-    return 'Hello World!'
+def create_database():
+    db.create_all()
+    return 'New Table Has Been Made'
 
 @app.route('/messages')
 def get_messages():
@@ -40,5 +40,5 @@ def get_messages():
     return jsonify(result)
 
 if __name__ == "__main__":
-    db.create_all()
+    # db.create_all()
     app.run()
