@@ -19,7 +19,7 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 class Message(db.Model):
-    sender_id = db.Column(db.Integer)
+    sender_id = db.Column(db.Integer, primary_key=True)
     # character limit is 500 
     sender_name = db.Column(db.String(500), default='Guest')
     content = db.Column(db.String(500), nullable=False)
@@ -52,18 +52,18 @@ def get_messages():
 
 # Post a new message to db
 @cross_origin()
-@app.route('/new/message', methods=['POST'])
+@app.route('/new_message', methods=['POST'])
 def post_message():
     req = request.get_json()
-    sender_name = req['sender_name']
     sender_id = req['sender_id']
+    sender_name = req['sender_name']
     time_sent = req['time_sent']
     content = req['content']
     new_entry = Message(sender_id=sender_id, sender_name=sender_name, time_sent=time_sent, content=content)
 
     db.session.add(new_entry)
     db.session.commit()
-    return redirect(url_for('/messages'))
+    return redirect(url_for(get_messages))
 
 if __name__ == "__main__":
     app.run()
