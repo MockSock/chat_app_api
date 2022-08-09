@@ -34,7 +34,7 @@ db.create_all()
 
 class MessageSchema(ma.Schema):
     class Meta:
-        fields = ('sender_id', 'sender_name', 'content', 'time_sent')
+        fields = ('message_id','sender_id', 'sender_name', 'content', 'time_sent')
 
 my_message_schema = MessageSchema(many=True)
 
@@ -59,12 +59,12 @@ def get_messages():
 @app.route('/new_message', methods=['POST'])
 def post_message():
     req = request.get_json()
-    message_id = req[createRandomNumber]
+    message_id = createRandomNumber()
     sender_id = req['sender_id']
     sender_name = req['sender_name']
     time_sent = req['time_sent']
     content = req['content']
-    new_entry = Message(message_id: createRandomNumber(), sender_id=sender_id, sender_name=sender_name, time_sent=time_sent, content=content)
+    new_entry = Message(message_id= message_id,sender_id=sender_id, sender_name=sender_name, time_sent=time_sent, content=content)
 
     db.session.add(new_entry)
     db.session.commit()
