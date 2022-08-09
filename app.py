@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_cors import cross_origin, CORS
 
+from random_number import createRandomNumber
+
 import os
 
 app = Flask(__name__)
@@ -19,7 +21,9 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 class Message(db.Model):
-    sender_id = db.Column(db.Integer, primary_key=True)
+    # need something to differentiate different messages
+    message_id = db.Column(db.Integer, primary_key=True)
+    sender_id = db.Column(db.Integer)
     # character limit is 500 
     sender_name = db.Column(db.String(500), default='Guest')
     content = db.Column(db.String(500), nullable=False)
@@ -55,15 +59,16 @@ def get_messages():
 @app.route('/new_message', methods=['POST'])
 def post_message():
     req = request.get_json()
+    message_id = req[createRandomNumber]
     sender_id = req['sender_id']
     sender_name = req['sender_name']
     time_sent = req['time_sent']
     content = req['content']
-    new_entry = Message(sender_id=sender_id, sender_name=sender_name, time_sent=time_sent, content=content)
+    new_entry = Message(message_id: createRandomNumber(), sender_id=sender_id, sender_name=sender_name, time_sent=time_sent, content=content)
 
     db.session.add(new_entry)
     db.session.commit()
-    return redirect(url_for(get_messages))
+    return redirect(url_for('/messages'))
 
 if __name__ == "__main__":
     app.run()
