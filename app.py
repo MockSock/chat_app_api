@@ -68,7 +68,7 @@ def post_message():
 
     db.session.add(new_entry)
     db.session.commit()
-    return redirect(url_for('/messages'))
+    return redirect(url_for('get_messages'))
 
 if __name__ == "__main__":
     app.run()
