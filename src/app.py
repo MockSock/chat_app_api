@@ -41,12 +41,6 @@ class MessageSchema(ma.Schema):
         fields = ('message_id','sender_id', 'sender_name', 'content', 'time_sent')
 
 my_message_schema = MessageSchema(many=True)
-
-
-# need a / one 
-@app.route('/')
-def hello_world():
-    return "Hello World"
     
 # Get Messages
 @cross_origin()
