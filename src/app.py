@@ -4,10 +4,14 @@ from flask_marshmallow import Marshmallow
 from flask_cors import cross_origin, CORS
 
 from src.random_number import createRandomNumber
+# import blueprint
+from src.hello_world_blueprint import hello_world_blueprint
 
 import os
 
 app = Flask(__name__)
+# All blueprints ahve to be registered
+app.register_blueprint(hello_world_blueprint)
 CORS(app)
 
 # The path has to be coded into a variable according to this:
