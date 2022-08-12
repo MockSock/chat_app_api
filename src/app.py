@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_cors import cross_origin, CORS
 
-from random_number import createRandomNumber
+from src.random_number import createRandomNumber
 
 import os
 
