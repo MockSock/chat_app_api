@@ -11,7 +11,7 @@ import os
 
 app = Flask(__name__)
 # All blueprints ahve to be registered
-app.register_blueprint(hello_world_blueprint)
+app.register_blueprint(hello_world_blueprint, url_prefix='/')
 CORS(app)
 
 # The path has to be coded into a variable according to this:
